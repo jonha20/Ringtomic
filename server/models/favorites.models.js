@@ -80,8 +80,6 @@ const updateFavorite = async (fav) => {
   return result;
 };
 
-
-
 module.exports = {
   getFavorites,
   getFavsByLocation,
