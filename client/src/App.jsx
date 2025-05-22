@@ -14,12 +14,13 @@ function App() {
     <>
       <BrowserRouter>
         <Header />
-        <Footer />
+        
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   )

@@ -1,7 +1,12 @@
 import React from "react";
+import MapContainer from "./MapContainer";
 
 const Main = () => {
-  return <div>Main</div>;
+  return (
+    <>
+      <MapContainer/>
+    </>
+  );
 };
 
 export default Main;
