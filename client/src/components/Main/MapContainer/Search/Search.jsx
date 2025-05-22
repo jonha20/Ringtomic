@@ -1,35 +1,29 @@
-import React, { useState, useEffect ,useContext} from "react";
+import React, { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 
-const Search = ({setPitches, pitchesList}) => {
-
+const Search = ({ setSearch }) => {
   const [pitchesName, setPitchesName] = useState("");
   const [debouncedText] = useDebounce(pitchesName, 2000);
 
-    useEffect(() => {
-  // Combina los Pokémon de la API y los del usuario
- 
-  const filtered = pitchesList.filter((poke) =>
-    poke.name.toLowerCase().includes(debouncedText.toLowerCase())
-  );
-  setPitches(filtered);
-}, [debouncedText, pitchesList, setPitches]);
+  useEffect(() => {
+    setSearch(debouncedText);
+  }, [debouncedText, setSearch]);
 
-   const handleChange = (e) => {
+  const handleChange = (e) => {
     setPitchesName(e.target.value);
   };
 
-  return <>
-  <div className="search-bar-container">
-        <input
-          type="text"
-          name="name"
-          value={pitchesName}
-          onChange={handleChange}
-          placeholder="Search Pokemon"
-        />
-      </div>
-  </>;
+  return (
+    <div className="search-bar-container">
+      <input
+        type="text"
+        name="name"
+        value={pitchesName}
+        onChange={handleChange}
+        placeholder="Search City"
+      />
+    </div>
+  );
 };
 
 export default Search;
