@@ -1,53 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import { UserContext } from "../../../../context/userContext";
+
 const Map = ({ pitches }) => {
   const [coords, setValue] = useState([40.4168, -3.7038]); // Valor por defecto
-
+  const { user } = useContext(UserContext);
   const handleAddFavorite = async (idpitch, customname) => {
-    //Leer token de la cookie
-    const token = Cookies.get("access_token");
-
-    if (!token) {
-      console.log("No se encontró el token en la cookie");
-      return;
-    }
-    // Decodificar el token para obtener el id del usuario
-    let iduser;
     try {
-      const decoded = jwtDecode(token);
-      iduser = decoded.id;
-      console.log("ID del usuario:", iduser);
-    } catch (e) {
-      console.log("Error decodificando el token:", e.message);
-      return;
-    }
+      let iduser = user.id;
 
-    if (!iduser) {
-      console.log("No se pudo obtener el id del usuario");
-      return;
-    }
-    try {
-      const request = await axios({
-        method: "post",
-        url: "http://localhost:3000/favorites/",
-        data: {
+      // Hacer la petición para añadir a favoritos
+      const response = await axios.post(
+        "http://localhost:3000/favorites/",
+        {
           iduser,
           idpitch,
           customname,
         },
-        withCredentials: true,
-      });
+        { withCredentials: true }
+      );
 
-      if (request.status === 201) {
-        console.log(request.data.msg);
+      if (response.status === 201) {
+        console.log(response.data.msg);
         console.log("Added to favorites:", idpitch + ", " + customname);
+      } else {
+        console.log("No se pudo añadir a favoritos");
       }
     } catch (error) {
-      console.error(error.response.data);
+      if (error.response && error.response.data) {
+        console.error(error.response.data);
+      } else {
+        console.error(error.message);
+      }
     }
   };
 
