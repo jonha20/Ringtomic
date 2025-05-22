@@ -45,7 +45,7 @@ const addFavorite = async (req, res) => {
             res.status(400).json({ message: "Error al añadir el favorito" });
         }
     } catch (error) {
-        res.status(500).json({ error: "Error en la BBDD" });
+        res.status(500).json( "El campo ya esta en favoritos" );
     }
 };
 

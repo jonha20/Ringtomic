@@ -76,6 +76,7 @@ async function login(req, res) {
       .cookie("access_token", token, {
         httpOnly: true,
         secure: false,
+        sameSite: "lax", // o "none" si usas https
         maxAge: 3600000, // 1 hora
       })
       .json({
