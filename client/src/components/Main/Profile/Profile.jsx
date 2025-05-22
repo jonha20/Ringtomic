@@ -1,63 +1,53 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import ProfileInfo from "./ProfileInfo";
 import Favs from "./Favs";
-import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
+import { UserContext } from "../../../context/UserContext";
+import { v4 as uuidv4 } from "uuid";
+
 
 const Profile = () => {
-  const [user, setUser] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const { user } = useContext(UserContext);
 
-  //Leer token de la cookie
-      const token = Cookies.get("access_token");
-  
-      if (!token) {
-        console.log("No se encontró el token en la cookie");
-        return;
-      }else{
-        const decoded = jwtDecode(token);
+  useEffect(() => {
+    if (!user || !user.email) return; // Espera a que user esté listo
+
+    const fetchFavs = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/favorites/${user.email}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setFavorites(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
       }
-     
+    };
 
- useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/users/${jwtDecode(token).id}`, {
-        method: "GET",
-        credentials: "include",
-      });
-      const data = await response.json();
-      setUser(data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
+    fetchFavs();
+  }, [user]); // Ejecuta cuando user cambie
 
-  fetchUser();
-}, []); // <-- SOLO una vez al montar
-
-useEffect(() => {
-  const fetchFavs = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/favorites/search?email=${decoded.email}&location=`, {
-        method: "GET",
-        credentials: "include",
-      });
-      const data = await response.json();
-      setFavorites(data);
-    } catch (error) {
-      console.error("Error fetching favorites:", error);
-    }
-  };
-
-  fetchFavs();
-}, []); // <-- SOLO una vez al montar
-
-  return <>
-      <ProfileInfo userInfo={user}/>
-      <Favs userFavorites={favorites}/>
-  </>;
+  return (
+    <>
+      <ProfileInfo />
+      <h2>Favoritos</h2>
+       {favorites && favorites.length > 0 ? (
+          favorites.map((fav) => (
+            <Favs key={uuidv4()} favs={[fav]} />
+          ))
+        ) : (
+          <div className="no-favorites">
+            <h2>No tienes favoritos</h2>
+          </div>
+        )}
+    </>
+  );
 };
 
 export default Profile;

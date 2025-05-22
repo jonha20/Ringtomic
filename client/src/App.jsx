@@ -10,6 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { UserContext } from "./context/userContext";
+import Profile from './components/Main/Profile'
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -46,6 +47,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<LogIn setIsLogged={setIsLogged} />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
         <Footer />

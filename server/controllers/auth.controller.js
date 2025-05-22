@@ -65,7 +65,7 @@ async function login(req, res) {
     ]);
     // Generar token
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role, logged: user.logged },
+      { id: user.id, email: user.email, role: user.role, logged: user.logged, img: user.image_url , name: user.name },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -73,11 +73,11 @@ async function login(req, res) {
     res
       .status(200)
       .set("Authorization", `Bearer ${token}`)
-      .cookie("access_token", token, {
-        httpOnly: true,
+      res.cookie("access_token", token, {
+        httpOnly: false, // <--- Esto la hace invisible para JS
         secure: false,
-        sameSite: "lax", // o "none" si usas https
-        maxAge: 3600000, // 1 hora
+        sameSite: "lax",
+        maxAge: 3600000,
       })
       .json({
         role: user.role,
@@ -105,7 +105,7 @@ async function logout(req, res) {
     res.clearCookie("access_token", {
       httpOnly: true,
       sameSite: "lax", // o "none" si usas https
-      secure: false,   // true si usas https
+      secure: false, // true si usas https
       path: "/",
     });
     res.status(200).json({
