@@ -1,6 +1,7 @@
 import React , { useState , useEffect}  from "react";
 import { Route, Routes } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [name, setUsername] = useState("");
@@ -9,6 +10,8 @@ const SignUp = () => {
   const [message, setMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [emailMessage, setEmailMessage] = useState("");
+  const navigate = useNavigate();
+  
 
     useEffect(() => {
     const emailValidation = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -37,6 +40,9 @@ const SignUp = () => {
         data: { name ,email , password }
       });
       setMessage(request.data.msg);
+      if (request.status === 200) {
+        navigate("/login");
+      }
     } catch (error) {
       console.log(error.message)
     }

@@ -4,11 +4,10 @@ require("dotenv").config();
 
 // Configura tu conexión a PostgreSQL
 const client = new Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  user: "neondb_owner",
+  host: "ep-young-sun-a2lbp2ek-pooler.eu-central-1.aws.neon.tech",
+  database: "neondb",
+  password: "npg_SKjyXF67LwVC",
   port: 5432,
   ssl: {
     rejectUnauthorized: false,
