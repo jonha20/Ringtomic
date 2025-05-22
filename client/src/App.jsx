@@ -9,15 +9,21 @@ import "normalize.css";
 
 import { BrowserRouter } from 'react-router-dom';
 function App() {
+  const [isLogged, setIsLogged] = useState(false);
+
+  // Hook para saber la ruta actual
+  const location = window.location.pathname;
+
+  // Oculta el header en login y signup
+  const hideHeader = location === "/login" || location === "/signup";
 
   return (
     <>
       <BrowserRouter>
-        <Header />
-        
+        {!hideHeader && <Header />}
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/login" element={<LogIn />} />
+          <Route path="/login" element={<LogIn setIsLogged={setIsLogged} />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
         <Footer />

@@ -94,14 +94,22 @@ async function login(req, res) {
 async function logout(req, res) {
   let client;
   try {
-    const token = req.cookies.token;
+    const token = req.cookies.access_token;
     if (token) {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       await pool.query("UPDATE users SET logged = false WHERE id = $1", [
         decoded.id,
       ]);
     }
-    res.clearCookie("token");
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      sameSite: "lax", // o "none" si usas https
+      secure: false,   // true si usas https
+      path: "/",
+    });
+    res.status(200).json({
+      message: "Cierre de sesión exitoso",
+    });
   } catch (error) {
     res.status(500).json({ message: "Error en el logout" });
   } finally {
