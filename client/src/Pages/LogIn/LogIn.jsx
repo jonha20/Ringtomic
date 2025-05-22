@@ -13,7 +13,11 @@ const LogIn = () => {
       const request = await axios({
         method: "post",
         url: "http://localhost:3000/users/login",
-        data: { email, password },
+        data: {
+          email,
+          password,
+        },
+        withCredentials: true,
       });
       setMessage(request.data.msg);
     } catch (error) {

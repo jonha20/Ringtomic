@@ -5,6 +5,7 @@ import Main from './components/Main/Main.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import LogIn from './pages/LogIn'
 import SignUp from './pages/SignUp'
+import "normalize.css";
 
 import { BrowserRouter } from 'react-router-dom';
 function App() {
