@@ -1,39 +1,41 @@
-const fs = require('fs');
-const { Client } = require('pg');
+const fs = require("fs");
+const { Client } = require("pg");
+require("dotenv").config();
 
 // Configura tu conexión a PostgreSQL
 const client = new Client({
-  user: 'neondb_owner',
-  host: 'ep-young-sun-a2lbp2ek-pooler.eu-central-1.aws.neon.tech',
-  database: 'neondb',
-  password: 'npg_SKjyXF67LwVC',
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
   port: 5432,
-    ssl: {
-        rejectUnauthorized: false,
-    }
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 async function importarPitches() {
   try {
     await client.connect();
 
-    const data = fs.readFileSync('pitches.json', 'utf-8');
+    const data = fs.readFileSync(__dirname + "/pitch.json", "utf-8");
     const pitches = JSON.parse(data);
 
     for (const pitch of pitches) {
-      const name = 'Campo de baloncesto';
-      const type = pitch.tags?.sport || 'desconocido';
-      const city = pitch.address?.city || '';
-      const state = pitch.address?.province || '';
-      const access = pitch.tags?.access === 'private' ? 'private' : 'public';
+      const name = "Campo de baloncesto";
+      const type = pitch.tags?.sport || "desconocido";
+      const city = pitch.address?.city || "";
+      const state = pitch.address?.province || "";
+      const access = pitch.tags?.access === "private" ? "private" : "public";
 
       let lat = null;
       let lon = null;
 
-      if (pitch.type === 'node') {
+      if (pitch.type === "node") {
         lat = pitch.lat;
         lon = pitch.lon;
-      } else if (pitch.type === 'way') {
+      } else if (pitch.type === "way") {
         lat = pitch.center?.lat;
         lon = pitch.center?.lon;
       } else {
@@ -54,9 +56,9 @@ async function importarPitches() {
       await client.query(query, [name, city, state, type, lat, lon, access]);
     }
 
-    console.log('✅ Importación completada con campo access');
+    console.log("✅ Importación completada con campo access");
   } catch (err) {
-    console.error('❌ Error al importar:', err);
+    console.error("❌ Error al importar:", err);
   } finally {
     await client.end();
   }
