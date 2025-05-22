@@ -1,0 +1,33 @@
+.nav {
+  ul {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: #222;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  a:hover,
+  a.active {
+    background: #f0f0f0;
+    color: #007bff;
+  }
+}
+/* Responsive: stack menu vertically on very small screens */
+@media (max-width: 400px) {
+  .nav ul {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}
