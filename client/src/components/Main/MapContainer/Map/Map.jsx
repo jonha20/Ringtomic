@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
 import { UserContext } from "../../../../context/userContext";
 
 const Map = ({ pitches }) => {

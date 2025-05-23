@@ -32,6 +32,7 @@ const Profile = () => {
 
     fetchFavs();
   }, [user]); // Ejecuta cuando user cambie
+   console.log(favorites);
 
   return (
     <>

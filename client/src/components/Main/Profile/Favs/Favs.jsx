@@ -12,7 +12,7 @@ const Favs = ({favs}) => {
        
           <p>Provincia: {favs[0].state}</p>
           <p>Ciudad: {favs[0].city}</p>
-          <p>Campo: {favs[0].name}</p>
+          <p>Campo: {favs[0].customname}</p>
           <p>Acceso: {favs[0].access}</p>
         </div>
       </div>
