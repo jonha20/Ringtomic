@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { UserContext } from "../../../../context/UserContext";
+import { UserContext } from '@/src/context/userContext';
 
 const ProfileInfo = () => {
   const { user } = useContext(UserContext);
