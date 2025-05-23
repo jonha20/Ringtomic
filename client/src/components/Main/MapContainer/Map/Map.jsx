@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import axios from "axios";
-import { UserContext } from "../../../../context/userContext";
+import { UserContext } from "@/context/userContext";
 
 const Map = ({ pitches }) => {
   const [coords, setValue] = useState([40.4168, -3.7038]); // Valor por defecto
