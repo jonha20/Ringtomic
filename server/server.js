@@ -6,10 +6,19 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 app.use(express.json());
+// app.use(cors({
+//   origin: 'http://localhost:5173', // Cambia esto a la URL de tu frontend
+//   credentials: true // Permite el envío de cookies
+// }));
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Cambia esto a la URL de tu frontend
-  credentials: true // Permite el envío de cookies
+  origin: function (origin, callback) {
+    // Permitir cualquier origen (incluido sin origen, por ejemplo herramientas de prueba)
+    callback(null, true);
+  },
+  credentials: true,
 }));
+
 
 app.use(morgan('dev'));
 app.use(cookieParser());
