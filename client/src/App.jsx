@@ -31,10 +31,9 @@ function App() {
   //   }
   // }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     let count = 0;
-    while (count < 5) {
-    // Leer token de la cookie cada segundo
+    const interval = setInterval(() => {
       count++;
       const token = Cookies.get("access_token");
       if (token) {
@@ -47,8 +46,10 @@ function App() {
       } else {
         setUser(null);
       }
-    }; // Cada 1 segundo, ajusta si quieres
+      if (count >= 3) clearInterval(interval);
+    }, 500); // Cada 1 segundo, ajusta si quieres
 
+    return () => clearInterval(interval);
   }, []);
 
   // Comprobar si el usuario está logueado

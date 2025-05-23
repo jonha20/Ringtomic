@@ -11,6 +11,8 @@ app.use(express.json());
 //   credentials: true // Permite el envío de cookies
 // }));
 
+app.set('trust proxy', 1); // Habilitar el proxy para HTTPS
+
 app.use(cors({
   origin: function (origin, callback) {
     // Permitir cualquier origen (incluido sin origen, por ejemplo herramientas de prueba)
