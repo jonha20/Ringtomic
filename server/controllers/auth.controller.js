@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const pool = require("../config/sqlConfig");
 const queries = require("../utils/queries");
-require("dotenv").config();
 const { createUser } = require("../models/auth.models"); // Importar la función createUser
 
 /**

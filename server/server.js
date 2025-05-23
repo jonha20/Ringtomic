@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require("express"); // Importamos el paquete express
 const app = express(); // Inciializar servidor con express
 const port = 3000; // Puerto a usar por el servidor
