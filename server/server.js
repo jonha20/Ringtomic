@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client')));
 console.log(path.join(__dirname, '../client/index.html')) // Imprime la ruta de la carpeta client
 
+
 // Handles any requests that don't match the ones above
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
