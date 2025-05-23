@@ -17,19 +17,40 @@ function App() {
   const [user, setUser] = useState({});
 
   // Leer token de la cookie
-  useEffect(() => {
-    const token = Cookies.get("access_token");
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        setUser(decoded);
-      } catch {
+  // useEffect(() => {
+  //   const token = Cookies.get("access_token");
+  //   if (token) {
+  //     try {
+  //       const decoded = jwtDecode(token);
+  //       setUser(decoded);
+  //     } catch {
+  //       setUser(null);
+  //     }
+  //   } else {
+  //     setUser(null);
+  //   }
+  // }, []);
+
+    useEffect(() => {
+    let count = 0;
+    while (count < 5) {
+    // Leer token de la cookie cada segundo
+      count++;
+      const token = Cookies.get("access_token");
+      if (token) {
+        try {
+          const decoded = jwtDecode(token);
+          setUser(decoded);
+        } catch {
+          setUser(null);
+        }
+      } else {
         setUser(null);
       }
-    } else {
-      setUser(null);
-    }
+    }; // Cada 1 segundo, ajusta si quieres
+
   }, []);
+
   // Comprobar si el usuario está logueado
   console.log(user);
 

@@ -63,25 +63,50 @@ async function login(req, res) {
       user.id,
     ]);
     // Generar token
+    // const token = jwt.sign(
+    //   { id: user.id, email: user.email, role: user.role, logged: user.logged, img: user.image_url , name: user.name },
+    //   process.env.JWT_SECRET,
+    //   { expiresIn: "1h" }
+    // );
+
+    // res
+    //   .status(200)
+    //   .set("Authorization", `Bearer ${token}`)
+    //   res.cookie("access_token", token, {
+    //     httpOnly: false, // <--- Esto la hace invisible para JS
+    //     secure: false,
+    //     sameSite: "lax",
+    //     maxAge: 3600000,
+    //   })
+    //   .json({
+    //     role: user.role,
+    //     token: token,
+    //     message: "Inicio de sesión exitoso",
+    //   })
+
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role, logged: user.logged, img: user.image_url , name: user.name },
+      {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        logged: user.logged,
+        img: user.image_url,
+        name: user.name,
+      },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
+    res.status(200).set("Authorization", `Bearer ${token}`);
+
+    const isSecure = req.secure || req.headers["x-forwarded-proto"] === "https";
+
     res
-      .status(200)
-      .set("Authorization", `Bearer ${token}`)
-      res.cookie("access_token", token, {
-        httpOnly: false, // <--- Esto la hace invisible para JS
-        secure: false,
-        sameSite: "lax",
+      .cookie("access_token", token, {
+        httpOnly: false,
+        secure: isSecure, // True solo si la petición es HTTPS
+        sameSite: "lax", // Puedes poner "none" si necesitas cross-site y siempre con secure: true
         maxAge: 3600000,
-      })
-      .json({
-        role: user.role,
-        token: token,
-        message: "Inicio de sesión exitoso",
       })
       .send();
   } catch (error) {
