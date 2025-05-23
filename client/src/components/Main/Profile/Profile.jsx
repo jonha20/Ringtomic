@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import ProfileInfo from "./ProfileInfo";
 import Favs from "./Favs";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "@/context/UserContext";
 import { v4 as uuidv4 } from "uuid";
 
 
