@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Search from "./Search";
-import Map from "./Map";
+import Search from "./Search/Search";
+import Map from "./Map/Map";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
