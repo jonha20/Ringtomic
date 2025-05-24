@@ -7,14 +7,13 @@ const ProfileInfo = () => {
   return <>
   
     <div className="profile-info">
-      <h2>Perfil de {user.name}</h2>
+      <h3>Perfil de {user.name}</h3>
       <div className="profile-info__container">
         <div className="profile-info__container__img">
           <img src={user.img} alt="Profile" />
         </div>
         <div className="profile-info__container__data">
-          <p>Email: {user.email}</p>
-          <p>Rol: {user.role}</p>
+          <p>{user.email}</p>
         </div>
       </div>
       </div>

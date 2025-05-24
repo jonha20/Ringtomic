@@ -50,45 +50,51 @@ const SignUp = () => {
 
   return <>
 
-    <div className="signup">
+    <main className="signup">
       <h1>Sign Up</h1>
-      <form onSubmit={handleSignUp}>
-        <div>
-          <label htmlFor="name">Username</label>
+      <form className="signup__form" onSubmit={handleSignUp} autoComplete="on">
+        <div className="signup__field">
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
             value={name}
             onChange={(e) => setUsername(e.target.value)}
+            required
+            autoComplete="username"
           />
         </div>
-        <div>
+        <div className="signup__field">
           <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete="email"
           />
-          {emailMessage ? <span>{emailMessage}</span> : ""}
+          {emailMessage && <span className="signup__message">{emailMessage}</span>}
         </div>
-        <div>
+        <div className="signup__field">
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+            autoComplete="new-password"
           />
-           {passwordMessage ? <span>{passwordMessage}</span> : ""}
+          {passwordMessage && <span className="signup__message">{passwordMessage}</span>}
         </div>
-        <button type="submit">Sign Up</button>
+        <button className="signup__submit" type="submit">Sign Up</button>
       </form>
-      <span>{message}</span>
-      <p>
+      {message && <span className="signup__message">{message}</span>}
+      <p className="signup__login">
         Already have an account? <a href="/login">Log in</a>
       </p>
-    </div>
+    </main>
 
   </>;
 };

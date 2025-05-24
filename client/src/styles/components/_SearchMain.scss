@@ -1,0 +1,31 @@
+@use '../utils/variables.scss' as vars;
+
+.search-bar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 1.2rem 0;
+
+  input[type="text"] {
+    width: 100%;
+    max-width: 350px;
+    padding: 0.7rem 1.1rem;
+    border: 2px solid vars.$blue-green;
+    border-radius: 0.8rem;
+    font-size: 1.05rem;
+    color: vars.$federal-blue;
+    background: vars.$light-cyan;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &::placeholder {
+      color: vars.$marian-blue;
+      opacity: 0.7;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: vars.$honolulu-blue;
+      box-shadow: 0 0 0 2px vars.$vivid-sky-blue;
+    }
+  }
+}
