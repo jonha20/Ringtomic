@@ -24,13 +24,17 @@ const Header = () => {
   };
   return (
     <>
-      <header className="header">
-      <img src={Logo} alt="Logo" className="header__logo" />
-      <div className="header__right">
-        <Nav />
-        <button onClick={logout}>Logout</button>
-      </div>
-    </header>
+<header className="header">
+  <div className="header__logo">
+    <img src={Logo} alt="Logo" />
+  </div>
+  <div className="header__center">
+    <Nav />
+  </div>
+  <div className="header__logout-container">
+    <button className="header__logout" onClick={logout}>Logout</button>
+  </div>
+</header>
     </>
   );
 };

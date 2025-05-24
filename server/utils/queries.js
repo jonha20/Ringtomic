@@ -20,7 +20,7 @@ const queries = {
   deleteUser: `DELETE FROM users WHERE email=$1;`,
 
   //FAVS
-  getAllFavs: `SELECT customname, pi.city, pi.state, pi.access FROM public.favorites 
+  getAllFavs: `SELECT  pi.id ,customname, pi.city, pi.state, pi.access FROM public.favorites 
 inner join users us on iduser = us.id
 inner join pitches pi on idpitch = pi.id 
 WHERE email = $1`,

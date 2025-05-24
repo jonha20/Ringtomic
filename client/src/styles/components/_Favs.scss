@@ -1,0 +1,82 @@
+@use '../utils/variables.scss' as vars;
+
+.favs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.fav-card {
+  background: linear-gradient(120deg, vars.$blue-green 0%, vars.$vivid-sky-blue 100%);
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px 0 rgba(0, 119, 182, 0.10);
+  padding: 1.2rem 1.5rem;
+  min-width: 220px;
+  max-width: 260px;
+  margin: 0 auto;
+  color: vars.$federal-blue;
+  font-family: vars.$font-main;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.2s, transform 0.2s;
+
+  &:hover {
+    box-shadow: 0 8px 32px 0 rgba(0, 119, 182, 0.18);
+    transform: translateY(-4px) scale(1.03);
+  }
+
+  p {
+    margin: 0.2rem 0;
+    font-size: 1rem;
+    color: vars.$marian-blue;
+    font-weight: 500;
+
+    &:first-child {
+      color: vars.$honolulu-blue;
+      font-weight: 700;
+    }
+  }
+
+  .fav-card__actions {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 1rem;
+    width: 100%;
+
+    button {
+      flex: 1 1 0;
+      padding: 0.5rem 0.7rem;
+      border: none;
+      border-radius: 0.6rem;
+      font-weight: 600;
+      font-size: 0.97rem;
+      background: vars.$federal-blue;
+      color: vars.$light-cyan;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+
+      &.Editar {
+        background: vars.$blue-green;
+        color: vars.$federal-blue;
+      }
+      &.Eliminar {
+        background: vars.$honolulu-blue;
+        color: white;
+      }
+      &:hover {
+        background: vars.$pacific-cyan;
+        color: vars.$federal-blue;
+      }
+    }
+  }
+}

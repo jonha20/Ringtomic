@@ -1,69 +1,81 @@
+@use '../utils/variables.scss' as vars;
+
 .header {
+  width: 100%;
+  background: linear-gradient(90deg, vars.$federal-blue 60%, vars.$blue-green 100%);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  background: #5c5b5b;
+  padding: 1rem 0.5rem;
+  box-shadow: 0 2px 8px 0 rgba(2, 62, 138, 0.10);
 
   &__logo {
-    height: 70px;
-    object-fit: contain;
-    flex-shrink: 0;
-  }
-
-  &__right {
+    width: 110px;
+    margin-bottom: 0.7rem;
     display: flex;
     align-items: center;
-    flex: 1;
-    justify-content: flex-end;
-    gap: 16px;
-    position: relative;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
   }
 
-  nav {
-    flex: 1;
+  &__center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+
+  &__logout-container {
+    width: 100%;
     display: flex;
     justify-content: center;
   }
 
-  button {
-    margin-left: 16px;
-    padding: 6px 14px;
-    font-size: 1rem;
-    border-radius: 4px;
+  &__logout {
+    background: vars.$honolulu-blue;
+    color: vars.$light-cyan;
     border: none;
-    background: #fff;
-    color: #5c5b5b;
+    border-radius: 0.7rem;
+    padding: 0.5rem 1.2rem;
+    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s; // transicion para el botón
 
     &:hover {
-      background: #e0e0e0;
+      background: vars.$pacific-cyan;
+      color: vars.$federal-blue;
     }
   }
+}
 
-  // Oculta nav y logout en mobile, muestra hamburguesa
-  @media (max-width: 700px) {
-    &__right {
-      display: none;
-    }
-    .bm-burger-button {
-      display: block;
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 1001;
-    }
-  }
+// Desktop styles
+@media (min-width: 600px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
 
-  // Desktop: muestra nav y logout, oculta hamburguesa
-  @media (min-width: 701px) {
-    .bm-burger-button {
-      display: none;
+    &__logo {
+      margin-bottom: 0;
+      width: 130px;
     }
-    &__right {
-      display: flex;
+
+    &__center {
+      flex: 1 1 auto; // Allow center section to grow
+      justify-content: center;
+      margin-bottom: 0;
+    }
+
+    &__logout-container {
+      width: auto;
+      justify-content: flex-end;
     }
   }
 }

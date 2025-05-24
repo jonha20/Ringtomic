@@ -1,0 +1,47 @@
+@use '../utils/variables.scss' as vars;
+
+.footer {
+  width: 100%;
+  background: vars.$federal-blue;
+  color: vars.$light-cyan;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 0 0.7rem 0;
+  gap: 0.7rem;
+  font-size: 1rem;
+  position: static;
+  margin-top: auto;
+
+  &__icons {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  &__icon {
+    width: 28px;
+    height: 28px;
+    fill: vars.$light-cyan;
+    transition: fill 0.2s, transform 0.2s;
+    &:hover {
+      fill: vars.$pacific-cyan;
+      transform: scale(1.12);
+    }
+  }
+
+  &__copy {
+    font-size: 0.97rem;
+    color: vars.$non-photo-blue;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Desktop: opcional, para más espacio
+@media (min-width: 700px) {
+  .footer {
+    font-size: 1.08rem;
+    padding: 1.5rem 0 1rem 0;
+  }
+}
