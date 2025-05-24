@@ -77,8 +77,8 @@ async function login(req, res) {
 
     res.status(200).set("Authorization", `Bearer ${token}`);
 
-    const isSecure = req.secure || req.headers["x-forwarded-proto"] === "https";
-    const sameSite = isSecure ? "none" : "lax";
+    const isSecure = req.secure || req.headers["x-forwarded-proto"] === "https"; // Verifica si la conexión es segura (HTTPS)
+    const sameSite = isSecure ? "none" : "lax"; // "lax" para desarrollo, "none" para producción con HTTPS
 
     res
       .cookie("access_token", token, {
@@ -106,10 +106,14 @@ async function logout(req, res) {
         decoded.id,
       ]);
     }
+
+    const isSecure = req.secure || req.headers["x-forwarded-proto"] === "https"; // Verifica si la conexión es segura (HTTPS)
+    const sameSite = isSecure ? "none" : "lax"; // "lax" para desarrollo, "none" para producción con HTTPS
+    
     res.clearCookie("access_token", {
-      httpOnly: true,
-      sameSite: "lax", // o "none" si usas https
-      secure: false, // true si usas https
+      httpOnly: false, // igual que en login
+      sameSite: sameSite,
+      secure: isSecure,
       path: "/",
     });
     res.status(200).json({
