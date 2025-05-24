@@ -109,9 +109,9 @@ async function logout(req, res) {
 
     const isSecure = req.secure || req.headers["x-forwarded-proto"] === "https"; // Verifica si la conexión es segura (HTTPS)
     const sameSite = isSecure ? "none" : "lax"; // "lax" para desarrollo, "none" para producción con HTTPS
-    
+
     res.clearCookie("access_token", {
-      httpOnly: false, // igual que en login
+      httpOnly: true, // igual que en login
       sameSite: sameSite,
       secure: isSecure,
       path: "/",
