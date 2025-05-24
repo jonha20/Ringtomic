@@ -13,14 +13,30 @@ app.use(express.json());
 
 app.set('trust proxy', 1); // Habilitar el proxy para HTTPS
 
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     // Permitir cualquier origen (incluido sin origen, por ejemplo herramientas de prueba)
+//     callback(null, true);
+//   },
+//   credentials: true,
+// }));
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://ringtomic.netlify.app"
+];
+
 app.use(cors({
   origin: function (origin, callback) {
-    // Permitir cualquier origen (incluido sin origen, por ejemplo herramientas de prueba)
-    callback(null, true);
+    // Permite peticiones sin origen (como Postman) o desde los orígenes permitidos
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("No permitido por CORS"));
+    }
   },
   credentials: true,
 }));
-
 
 app.use(morgan('dev'));
 app.use(cookieParser());
