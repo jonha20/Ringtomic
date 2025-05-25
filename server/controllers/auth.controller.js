@@ -80,13 +80,21 @@ async function login(req, res) {
     const isSecure = req.secure || req.headers["x-forwarded-proto"] === "https"; // Verifica si la conexión es segura (HTTPS)
     const sameSite = isSecure ? "none" : "lax"; // "lax" para desarrollo, "none" para producción con HTTPS
 
+    // res
+    //   .cookie("access_token", token, {
+    //     httpOnly: false, // o true si no necesitas acceder desde JS
+    //     secure: isSecure,
+    //     sameSite: sameSite,
+    //     maxAge: 3600000,
+    //     path: "/",
+    //   })
+    //   .send();
     res
       .cookie("access_token", token, {
-        httpOnly: false, // o true si no necesitas acceder desde JS
-        secure: isSecure,
-        sameSite: sameSite,
+        httpOnly: false, // true si no necesitas leerla desde JS
+        secure: true, // ✅ OBLIGATORIO para SameSite=None
+        sameSite: "none", // ✅ OBLIGATORIO para dominios cruzados
         maxAge: 3600000,
-        path: "/",
       })
       .send();
   } catch (error) {
