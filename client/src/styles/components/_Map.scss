@@ -8,6 +8,7 @@
   box-shadow: 0 4px 24px 0 rgba(2, 62, 138, 0.10);
   overflow: hidden;
   background: vars.$light-cyan;
+  z-index: 1; // Asegura que el mapa esté por encima de otros elementos
 
   // Leaflet controls
   .leaflet-control {

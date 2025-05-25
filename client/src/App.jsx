@@ -13,7 +13,6 @@ import { UserContext } from "./context/userContext";
 import Profile from "./components/Main/Profile";
 
 
-
 function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState({});

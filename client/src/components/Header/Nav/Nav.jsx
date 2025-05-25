@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Nav = () => {
+const Nav = ({onItemClick}) => {
   return <>
     <nav className="nav">
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link onClick={onItemClick} to="/">Home</Link>
         </li>
         <li>
-          <Link to="/profile">Perfil</Link>
+          <Link onClick={onItemClick} to="/profile">Perfil</Link>
         </li>
       </ul>
     </nav>
