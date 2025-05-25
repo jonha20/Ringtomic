@@ -20,6 +20,9 @@ WHERE reserved = false
     WHERE
         email=$4;`,
   deleteUser: `DELETE FROM users WHERE email=$1;`,
+  updatePhoto: `UPDATE users
+    SET image_url = $1
+    WHERE id = $2;`,
 
   //FAVS
   getAllFavs: `SELECT  pi.id ,customname, pi.city, pi.state, pi.access, pi.reserved FROM public.favorites 

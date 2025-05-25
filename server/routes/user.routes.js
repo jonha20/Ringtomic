@@ -1,4 +1,6 @@
 const express = require("express");
+// const multer = require('multer');
+// const upload = multer({ dest: 'uploads/' }); // o tu configuración
 const router = express.Router();
 const Userpgadmin = require("../controllers/user.controller");
 const { register, login, logout } = require('../controllers/auth.controller');
@@ -30,6 +32,9 @@ router.post("/login", login);
 
 // Cerrar sesión
 router.post("/logout", logout);
+
+// // Cambiar foto de perfil
+// router.put('/photo/:id', upload.single('image'), Userpgadmin.changePhoto);
 
 
 module.exports = router;

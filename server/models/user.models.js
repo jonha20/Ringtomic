@@ -217,6 +217,22 @@ const restorePassword = async (token, newPassword) => {
   }
 };
 
+// Change photo
+// const changePhoto = async (image_url, id) => {
+//   let client, result;
+//   try {
+//     client = await pool.connect(); // Espera a abrir conexión
+//     const data = await client.query(queries.updatePhoto, [image_url, id]);
+//     result = data.rowCount;
+//   } catch (err) {
+//     console.log(err);
+//     throw err;
+//   } finally {
+//     client.release();
+//   }
+//   return result;
+// };
+
 const user = {
   getAllUsers,
   getUserById,
@@ -229,6 +245,7 @@ const user = {
   recoverPassword,
   restorePassword,
   getUserByEmail,
-};
+  // changePhoto,
+  };
 
 module.exports = user; // Exportar el objeto ad con la función createAd
