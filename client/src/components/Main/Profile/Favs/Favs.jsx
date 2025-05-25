@@ -1,16 +1,21 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { UserContext } from "@/src/context/userContext";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Favs = ({ favs, onButton }) => {
+const Favs = ({ favs, onButton, onDelete }) => {
   const { user } = useContext(UserContext);
+  const notify = (message, type) => toast[type](message); // Función para mostrar notificaciones
+
+  // Función para mostrar notificaciones
 
   const deleteFav = async () => {
     try {
       let iduser = user.id;
-      let idpitch = favs[0].id;
-      console.log("ID del usuario:", iduser);
-      console.log("ID del pitch:", idpitch);
+      let idpitch = favs.id;
       const response = await axios.delete(
         `http://localhost:3000/favorites/`,
         {
@@ -22,17 +27,33 @@ const Favs = ({ favs, onButton }) => {
         { withCredentials: true }
       );
       console.log("Campo eliminado:", response.data);
+      if (onDelete) onDelete(); // Llama a la función onDelete
     } catch (error) {
       console.error("Error al eliminar el campo:", error);
     }
   };
-// En update los datos van sin data{} ya que se envían como el body de la petición PUT
-// En delete los datos van dentro de data{} porque se envían como el cuerpo de la petición 
+
   const updateFavName = async () => {
     try {
       let iduser = user.id;
-      let idpitch = favs[0].id; 
-      let customname = prompt("Introduce el nuevo nombre del campo:");
+      let idpitch = favs.id;
+      let customname = favs.customname;
+
+      await withReactContent(Swal).fire({
+        title: <i>Introduce nuevo nombre</i>,
+        input: "text",
+        customClass: {
+          confirmButton: "swal-confirm-button",
+          cancelButton: "swal-cancel-button",
+        },
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Guardar",
+        preConfirm: () => {
+          return (customname = Swal.getInput().value);
+        },
+      });
+
       const response = await axios.put(
         `http://localhost:3000/favorites/`,
         {
@@ -42,44 +63,74 @@ const Favs = ({ favs, onButton }) => {
         },
         { withCredentials: true }
       );
-      console.log("Campo eliminado:", response.data);
+      console.log("Campo actualizado:", response.data);
     } catch (error) {
-      console.error("Error al eliminar el campo:", error);
+      console.error("Error al actualizar el campo:", error);
     }
   };
-// async await en botones para manejar las peticiones asincrónicas
-// y poder actualizar el estado del componente después de realizar la acción
+
+  const reserveFav = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/favorites/${favs.id}`,
+        { withCredentials: true }
+      );
+      console.log("Campo reservado:", response.data);
+    } catch (error) {
+      console.error("Error al reservar el campo:", error);
+    }
+  };
+
   return (
     <>
-      <div className="fav-card">
-            <p>Id: {favs[0].id}</p>
-            <p>Provincia: {favs[0].state}</p>
-            <p>Ciudad: {favs[0].city}</p>
-            <p>Campo: {favs[0].customname}</p>
-            <p>Acceso: {favs[0].access}</p>
-              <div className="fav-card__actions">
-            <button
-              onClick={async () => {
-                await updateFavName();
-                if (onButton) onButton();
-              }}
-              className="Editar"
-            >
-              {" "}
-              Editar Nombre
-            </button>
-            <button
-              onClick={async () => {
+      <article className="fav-card">
+        <p>Id: {favs.id}</p>
+        <p>Provincia: {favs.state}</p>
+        <p>Ciudad: {favs.city}</p>
+        <p>Campo: {favs.customname}</p>
+        <p>Acceso: {favs.access}</p>
+        <p>Reservado: {favs.reserved ? "Sí" : "No"}</p>
+        <div className="fav-card__actions">
+          <button
+            onClick={async () => {
+              await updateFavName();
+              if (onButton) onButton();
+              notify("Nombre actualizado", "info");
+            }}
+            className="Editar"
+          >
+            Editar Nombre
+          </button>
+          <button
+            onClick={async () => {
+              try {
                 await deleteFav();
-                if (onButton) onButton();
-              }}
-              className="Eliminar"
-            >
-              {" "}
-              Eliminar Campo
-            </button>
-          </div>
-       </div>
+                if (onButton) await onButton();
+                notify("Campo eliminado de favoritos", "warning");
+              } catch (error) {
+                notify("Error al reservar el campo", "error");
+              }
+            }}
+            className="Eliminar"
+          >
+            Eliminar Campo
+          </button>
+          <button
+            onClick={async () => {
+              try {
+                await reserveFav();
+                if (onButton) await onButton();
+                notify("Campo reservado", "success");
+              } catch (error) {
+                notify("Error al reservar el campo", "error");
+              }
+            }}
+            className="Reservar"
+          >
+            Reservar Campo
+          </button>
+        </div>
+      </article>
     </>
   );
 };

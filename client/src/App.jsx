@@ -7,7 +7,6 @@ import Footer from "./components/Footer/Footer.jsx";
 import LogIn from "./Pages/LogIn/LogIn";
 import SignUp from "./Pages/SignUp/SignUp";
 import "normalize.css";
-import { BrowserRouter } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { UserContext } from "./context/userContext";

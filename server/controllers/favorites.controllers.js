@@ -79,10 +79,27 @@ const updateFavorite = async (req, res) => {
     }
 };
 
+//reservar un favorito
+const reserveFav = async (req, res) => {
+  const { id } = req.params; // Obtén el ID de la URL
+  try {
+    const result = await favs.reserveFav(id);
+    if (result > 0) {
+      res.status(200).json({ message: "Campo reservado con éxito" });
+    } else {
+      res.status(404).json({ message: "Campo no encontrado o ya reservado" });
+    }
+  } catch (error) {
+    console.error("Error reservando el campo:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
+
 module.exports = {
   getAllFavorites,
     getFavsByLocation,
     addFavorite,
     deleteFavorite,
-    updateFavorite
+    updateFavorite,
+    reserveFav
 }
