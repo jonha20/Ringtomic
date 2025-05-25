@@ -164,6 +164,26 @@ const restorePassword = async (req, res) => {
   }
 };
 
+//ChangePhoto
+// const changePhoto = async (req, res) => {
+//     const { id } = req.params;
+
+//     if (!req.file) {
+//         return res.status(400).json({ error: "URL de imagen requerida" });
+//     }
+//    const image_url = req.file.filename; // o req.file.path según tu modelo
+//     try {
+//         const updatedUser = await Userpgadmin.changePhoto(image_url, id);
+//         if (updatedUser) {
+//             res.status(200).json({ message: "Foto de perfil actualizada", user: updatedUser });
+//         } else {
+//             res.status(404).json({ error: "Usuario no encontrado" });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ error: "Error en la BBDD" });
+//     }
+// };
+
 
 module.exports = {
     getAllUsers,
@@ -175,4 +195,5 @@ module.exports = {
     logoutUser,
     recoverPassword,
     restorePassword,
+    // changePhoto
 }; 

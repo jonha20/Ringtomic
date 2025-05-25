@@ -1,12 +1,16 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 import { UserContext } from '@/src/context/userContext';
+import axios from "axios";
 
 const ProfileInfo = () => {
   const { user } = useContext(UserContext);
   if (!user) {
     window.location.href = "/login";
   }
+ 
+
+
   return <>
   
     <div className="profile-info">
@@ -15,6 +19,7 @@ const ProfileInfo = () => {
         <div className="profile-info__container__img">
           <img src={user.img} alt="Profile" />
         </div>
+        
         <div className="profile-info__container__data">
           <p>{user.email}</p>
         </div>
