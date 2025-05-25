@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+require("dotenv").config();
 const pool = require("../config/sqlConfig");
 const queries = require("../utils/queries");
 const { createUser } = require("../models/auth.models"); // Importar la función createUser
@@ -89,12 +90,15 @@ async function login(req, res) {
     //     path: "/",
     //   })
     //   .send();
+    const isProduction = process.env.NODE_ENV === "production";
+
     res
       .cookie("access_token", token, {
-        httpOnly: false, // true si no necesitas leerla desde JS
-        secure: true, // ✅ OBLIGATORIO para SameSite=None
-        sameSite: "none", // ✅ OBLIGATORIO para dominios cruzados
+        httpOnly: false,
+        secure: isProduction, // true en prod (HTTPS), false en dev (HTTP)
+        sameSite: isProduction ? "none" : "lax", // none para prod, lax para dev
         maxAge: 3600000,
+        domain: isProduction ? "ringtomic.onrender.com" : undefined, // solo en prod
       })
       .send();
   } catch (error) {
