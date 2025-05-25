@@ -25,7 +25,8 @@ app.use(cors({
   origin: ["http://localhost:5173",
     "http://localhost:80",
     "http://localhost",
-    "https://ringtomic.netlify.app"],
+    "https://ringtomic.netlify.app",
+  "https://ringtomic.onrender.com"],
   credentials: true
 }));
 
