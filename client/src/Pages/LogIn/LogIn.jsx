@@ -12,7 +12,7 @@ const LogIn = ({ setIsLogged }) => {
     e.preventDefault();
     try {
       const request = await axios.post(
-        "http://localhost:3000/users/login",
+        "https://ringtomic.onrender.com/users/login",
         { email, password },
         { withCredentials: true }
       );

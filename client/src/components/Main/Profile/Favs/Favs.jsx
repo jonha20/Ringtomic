@@ -17,7 +17,7 @@ const Favs = ({ favs, onButton, onDelete }) => {
       let iduser = user.id;
       let idpitch = favs.id;
       const response = await axios.delete(
-        `http://localhost:3000/favorites/`,
+        `https://ringtomic.onrender.com/favorites/`,
         {
           data: {
             iduser,
@@ -55,7 +55,7 @@ const Favs = ({ favs, onButton, onDelete }) => {
       });
 
       const response = await axios.put(
-        `http://localhost:3000/favorites/`,
+        `https://ringtomic.onrender.com/favorites/`,
         {
           iduser,
           idpitch,
@@ -72,7 +72,7 @@ const Favs = ({ favs, onButton, onDelete }) => {
   const reserveFav = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/favorites/${favs.id}`,
+        `https://ringtomic.onrender.com/favorites/${favs.id}`,
         { withCredentials: true }
       );
       console.log("Campo reservado:", response.data);

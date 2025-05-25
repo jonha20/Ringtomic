@@ -17,7 +17,7 @@ const Header = () => {
     try {
       const request = await axios({
         method: "post",
-        url: "http://localhost:3000/users/logout",
+        url: "https://ringtomic.onrender.com/users/logout",
         withCredentials: true,
       });
       if (request.status === 200) {

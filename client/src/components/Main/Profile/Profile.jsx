@@ -18,7 +18,7 @@ const Profile = () => {
   const fetchFavs = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/favorites/search?email=${user.email}&location=${searchFavs}`,
+        `https://ringtomic.onrender.com/favorites/search?email=${user.email}&location=${searchFavs}`,
         { withCredentials: true }
       );
       setFavorites(response.data);
