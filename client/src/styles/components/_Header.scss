@@ -57,6 +57,7 @@
 .bm-menu-wrap {
   top: 0;
   height: 100%;
+  z-index: 2000; // Asegura que el menú esté por encima de otros elementos
 }
 .bm-menu {
   background: vars.$federal-blue;

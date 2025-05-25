@@ -40,7 +40,7 @@ const SignUp = () => {
         data: { name ,email , password }
       });
       setMessage(request.data.msg);
-      if (request.status === 200) {
+      if (request.status === 201) {
         navigate("/login");
       }
     } catch (error) {
