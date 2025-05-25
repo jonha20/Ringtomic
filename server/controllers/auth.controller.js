@@ -99,8 +99,7 @@ async function login(req, res) {
         sameSite: isProduction ? "none" : "lax", // none para prod, lax para dev
         maxAge: 3600000,
         domain: isProduction ? "ringtomic.onrender.com" : undefined, // solo en prod
-      })
-      .send();
+      }).status(200).json({ token, msg: "Login correcto" }).send();
   } catch (error) {
     res.status(500).json({ message: "Error en el inicio de sesión" });
   } finally {
