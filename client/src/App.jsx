@@ -19,19 +19,22 @@ function App() {
   const [user, setUser] = useState({});
   const location = useLocation();
 
-  useEffect(() => {
-    const token = Cookies.get("access_token");
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        setUser(decoded);
-      } catch {
-        setUser(null);
-      }
-    } else {
+useEffect(() => {
+  //const token = Cookies.get("access_token");
+  const token = sessionStorage.getItem("access_token");
+  console.log("Token en cookie:", token);
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      setUser(decoded);
+    } catch (error) {
+      console.error("Error decodificando token:", error);
       setUser(null);
     }
-  }, [location]); // se ejecuta cada vez que cambie la ruta
+  } else {
+    setUser(null);
+  }
+}, [location]); // se ejecuta cada vez que cambie la ruta
 
   const hideHeader = location.pathname === "/login" || location.pathname === "/signup"; //esto oculta el header en las rutas de login y signup
 
