@@ -36,7 +36,7 @@ const SignUp = () => {
     try {
       const request = await axios({
         method: 'post',
-        url: 'http://localhost:3000/users/register',
+        url: 'https://ringtomic.onrender.com/users/register',
         data: { name ,email , password }
       });
       setMessage(request.data.msg);

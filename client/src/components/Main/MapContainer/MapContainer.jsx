@@ -11,7 +11,7 @@ console.log(search);
   useEffect(() => {
     const fetchPitches = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/pitches/search?location=${search}`);
+        const response = await axios.get(`https://ringtomic.onrender.com/pitches/search?location=${search}`);
         setPitches(response.data);
       } catch (error) {
         console.error("Error fetching pitches:", error);

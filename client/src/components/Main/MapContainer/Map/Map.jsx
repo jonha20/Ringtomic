@@ -17,7 +17,7 @@ const Map = ({ pitches }) => {
 
       // Hacer la petición para añadir a favoritos
       const response = await axios.post(
-        "http://localhost:3000/favorites/",
+        "https://ringtomic.onrender.com/favorites/",
         {
           iduser,
           idpitch,
