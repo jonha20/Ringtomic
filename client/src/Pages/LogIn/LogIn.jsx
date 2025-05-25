@@ -9,22 +9,23 @@ const LogIn = ({ setIsLogged }) => {
   const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
-    e.preventDefault();
-    try {
-      const request = await axios.post(
-        "https://ringtomic.onrender.com/users/login",
-        { email, password },
-        { withCredentials: true }
-      );
-      setMessage(request.data.msg);
-      if (request.status === 200) {
-        setIsLogged(true);
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error.message);
+  e.preventDefault();
+  try {
+    const request = await axios.post(
+      "https://ringtomic.onrender.com/users/login",
+      { email, password },
+      { withCredentials: true }
+    );
+    setMessage(request.data.msg);
+    if (request.status === 200 && request.data.token) {
+      sessionStorage.setItem("access_token", request.data.token);
+      setIsLogged(true);
+      navigate("/");
     }
-  };
+  } catch (error) {
+    console.log(error.message);
+  }
+};
   useEffect(() => {
     if (message) {
       setTimeout(() => {
