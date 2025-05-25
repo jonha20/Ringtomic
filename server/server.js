@@ -22,11 +22,12 @@ app.set('trust proxy', 1); // Habilitar el proxy para HTTPS
 // }));
 
 app.use(cors({
-  origin: ["http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
     "http://localhost:80",
     "http://localhost",
-    "https://ringtomic.netlify.app",
-  "https://ringtomic.onrender.com"],
+    "https://ringtomic.netlify.app"
+  ],
   credentials: true
 }));
 
