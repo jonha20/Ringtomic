@@ -18,6 +18,9 @@ router.delete("/", favsController.deleteFavorite);
 // Actualizar un favorito
 router.put("/", favsController.updateFavorite);
 
+// Reservar un campo favorito (mejorado para usar el ID en la URL)
+router.put("/:id", favsController.reserveFav);
+
 
 
 module.exports = router;

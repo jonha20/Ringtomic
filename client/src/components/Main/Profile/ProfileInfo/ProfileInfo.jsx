@@ -4,6 +4,9 @@ import { UserContext } from '@/src/context/userContext';
 
 const ProfileInfo = () => {
   const { user } = useContext(UserContext);
+  if (!user) {
+    window.location.href = "/login";
+  }
   return <>
   
     <div className="profile-info">

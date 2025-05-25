@@ -2,14 +2,13 @@ const express = require("express");
 const router = express.Router();
 const Userpgadmin = require("../controllers/user.controller");
 const { register, login, logout } = require('../controllers/auth.controller');
-// const auth = require("../middlewares/auth");
-// const isAdmin = require("../middlewares/isAdmin");
+const auth = require("../middlewares/auth.middleware");
 
 // Obtener todos los users
 router.get("/", Userpgadmin.getAllUsers);
 
 // Obtener user por ID
-router.get("/:id",  Userpgadmin.getUserById);
+router.get("/:id", auth, Userpgadmin.getUserById);
 
 // Actualizar user
 router.put("/", Userpgadmin.updateUser);

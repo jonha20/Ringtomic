@@ -1,7 +1,9 @@
 const queries = {
   //PITCHES
   getAllPitches: `SELECT * FROM public.pitches`,
-  getPitchByLocation: `SELECT * FROM pitches WHERE city ILIKE $1 OR state ILIKE $1 OR name ILIKE $1`,
+  getPitchByLocation: `SELECT * FROM pitches 
+WHERE reserved = false 
+  AND (city ILIKE $1 OR state ILIKE $1 OR name ILIKE $1);`,
 
 
   //USERS
@@ -20,11 +22,11 @@ const queries = {
   deleteUser: `DELETE FROM users WHERE email=$1;`,
 
   //FAVS
-  getAllFavs: `SELECT  pi.id ,customname, pi.city, pi.state, pi.access FROM public.favorites 
+  getAllFavs: `SELECT  pi.id ,customname, pi.city, pi.state, pi.access, pi.reserved FROM public.favorites 
 inner join users us on iduser = us.id
 inner join pitches pi on idpitch = pi.id 
 WHERE email = $1`,
-  getFavByLocation: `SELECT us.name, pi.city, pi.state, pi.access FROM public.favorites 
+  getFavByLocation: `SELECT us.name, pi.city, pi.state, pi.access, pi.id, customname FROM public.favorites 
 inner join users us on iduser = us.id
 inner join pitches pi on idpitch = pi.id 
 WHERE email = $1 AND (pi.city ILIKE $2 OR pi.state ILIKE $2 OR pi.name ILIKE $2);`,
@@ -34,6 +36,10 @@ WHERE email = $1 AND (pi.city ILIKE $2 OR pi.state ILIKE $2 OR pi.name ILIKE $2)
   updateFav: `UPDATE favorites
     SET customname = $1
     WHERE iduser = $2 AND idpitch = $3;`,
-};
+  reserveFav: `UPDATE pitches
+    SET reserved = true
+    WHERE id = $1;`,
+  
+  };
 
 module.exports = queries;

@@ -80,10 +80,27 @@ const updateFavorite = async (fav) => {
   return result;
 };
 
+//ReserveFav
+const reserveFav = async (id) => {
+  let client, result;
+  try {
+    client = await pool.connect(); // Espera a abrir conexion
+    const data = await client.query(queries.reserveFav, [id]);
+    result = data.rowCount;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  } finally {
+    client.release();
+  }
+  return result;
+};
+
 module.exports = {
   getFavorites,
   getFavsByLocation,
   addFavorite,
   deleteFavorite,
   updateFavorite,
+  reserveFav,
 };
