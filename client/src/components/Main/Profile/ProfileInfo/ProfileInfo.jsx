@@ -13,9 +13,9 @@ const ProfileInfo = () => {
 
   return <>
   
-    <div className="profile-info">
+    <section className="profile-info">
       <h3>Perfil de {user.name}</h3>
-      <div className="profile-info__container">
+      <article className="profile-info__container">
         <div className="profile-info__container__img">
           <img src={user.img} alt="Profile" />
         </div>
@@ -23,8 +23,8 @@ const ProfileInfo = () => {
         <div className="profile-info__container__data">
           <p>{user.email}</p>
         </div>
-      </div>
-      </div>
+      </article>
+      </section>
 
   </>;
 };
