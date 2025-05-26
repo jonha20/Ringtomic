@@ -50,7 +50,7 @@ const Profile = () => {
       <ToastContainer />
       <ProfileInfo />
       <h2>Favoritos</h2>
-      <div className="profile-search-input">
+      <section className="profile-search-input">
         <input
           type="text"
           name="name"
@@ -58,9 +58,9 @@ const Profile = () => {
           onChange={handleChange}
           placeholder="Search City"
         />
-      </div>
+      </section>
       {favorites && favorites.length > 0 ? (
-        <div className="favs-list">
+        <section className="favs-list">
           {favorites.map((fav) => (
             <Favs
               key={uuidv4()}
@@ -69,11 +69,11 @@ const Profile = () => {
               onDelete={handleDelete} 
             />
           ))}
-        </div>
+        </section>
       ) : (
-        <div className="no-favorites">
+        <section className="no-favorites">
           <h2>No tienes favoritos</h2>
-        </div>
+        </section>
       )}
     </>
   );
