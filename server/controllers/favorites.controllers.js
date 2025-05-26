@@ -70,7 +70,7 @@ const updateFavorite = async (req, res) => {
     try {
         const updated = await favs.updateFavorite({ customname, iduser, idpitch });
         if (updated > 0) {
-            res.status(200).json({ message: "Favorito actualizado correctamente" });
+            res.status(200).json({ message: "Favorito actualizado correctamente" , favs: { customname, iduser, idpitch } });
         } else {
             res.status(404).json({ message: "No se encontró el favorito para actualizar" });
         }
@@ -85,7 +85,7 @@ const reserveFav = async (req, res) => {
   try {
     const result = await favs.reserveFav(id);
     if (result > 0) {
-      res.status(200).json({ message: "Campo reservado con éxito" });
+      res.status(200).json({ message: "Campo reservado con éxito"});
     } else {
       res.status(404).json({ message: "Campo no encontrado o ya reservado" });
     }
