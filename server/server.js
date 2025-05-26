@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 app.use(express.json());
 // app.use(cors({
 //   origin: 'http://localhost:5173', // Cambia esto a la URL de tu frontend
@@ -36,7 +38,6 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, '../client')));
-console.log(path.join(__dirname, '../client/index.html')) // Imprime la ruta de la carpeta client
 
 
 // Handles any requests that don't match the ones above
@@ -47,6 +48,12 @@ app.get('/', (req, res) => {
 // app.get('/', (req, res) => {
 //   res.send('¡Ringtomic!');
 // });
+
+// Documentación
+// http://localhost:3000/api-swagger
+app.use('/api-swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
 
 const userRoutes = require('./routes/user.routes');
 const pitchesRoutes = require('./routes/pitches.routes');
