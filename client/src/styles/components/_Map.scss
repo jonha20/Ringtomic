@@ -46,10 +46,9 @@
 }
 
 // Responsive
-@media (max-width: 700px) {
+@media (min-width: 700px) {
   .full-map {
     width: 98vw;
-    min-width: 0;
     border-radius: 0.7rem;
   }
 }
