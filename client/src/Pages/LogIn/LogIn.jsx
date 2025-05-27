@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
-const LogIn = ({ setIsLogged }) => {
+const LogIn = ({  }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -20,7 +20,6 @@ const LogIn = ({ setIsLogged }) => {
       setMessage(request.data.msg);
       if (request.status === 200 && request.data.token) {
         sessionStorage.setItem("access_token", request.data.token);
-        setIsLogged(true);
         navigate("/");
       }
     } catch (error) {

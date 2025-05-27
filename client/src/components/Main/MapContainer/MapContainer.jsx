@@ -24,7 +24,7 @@ console.log(search);
   return (
     <>
       <Search setSearch={setSearch}  />
-      <Map key={uuidv4()} pitches={pitches} />
+      <Map key={uuidv4()} pitches={pitches}  />
     </>
   );
 };
