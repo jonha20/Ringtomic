@@ -1,20 +1,5 @@
 @use "../utils/variables.scss" as vars;
 
-.favs-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  margin: 1.5rem 0;
-  padding: 0;
-  list-style: none;
-
-  @media (min-width: 600px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-}
-
 .fav-card {
   background: linear-gradient(
     120deg,
@@ -54,11 +39,11 @@
   .fav-card__actions {
     display: flex;
     gap: 0.3rem;
-    margin-top: auto;
+    margin-top: 10px;
     width: 100%;
 
     button {
-      flex: 1 1 0;
+      flex: 1 1 0; // Ocupa el espacio disponible
       padding: 0.5rem 0.7rem;
       border: none;
       border-radius: 0.6rem;
@@ -75,7 +60,7 @@
       }
       &.Eliminar {
         background: vars.$honolulu-blue;
-        color: white;
+        color: vars.$white;
       }
       &:hover {
         background: vars.$pacific-cyan;
@@ -119,5 +104,19 @@
     background-color: vars.$marian-blue; /* Fondo al pasar el mouse */
     color: vars.$white; /* Texto al pasar el mouse */
     transform: scale(1.05); /* Efecto de zoom */
+  }
+}
+.favs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
