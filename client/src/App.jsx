@@ -14,7 +14,6 @@ import Profile from "./components/Main/Profile";
 
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState({});
   const location = useLocation();
 
@@ -44,7 +43,7 @@ useEffect(() => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<LogIn setIsLogged={setIsLogged} />} />
+          <Route path="/login" element={<LogIn  />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
       </UserContext.Provider>

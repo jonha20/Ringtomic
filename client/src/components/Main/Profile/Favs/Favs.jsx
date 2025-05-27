@@ -119,7 +119,7 @@ const Favs = ({ favs, onButton, onDelete }) => {
             onClick={async () => {
               try {
                 await reserveFav();
-                if (onButton) await onButton();
+                if (onButton) onButton();
                 notify("Campo reservado", "success");
               } catch (error) {
                 notify("Error al reservar el campo", "error");

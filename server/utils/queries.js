@@ -32,7 +32,7 @@ WHERE email = $1`,
   getFavByLocation: `SELECT us.name, pi.city, pi.state, pi.access, pi.id, customname FROM public.favorites 
 inner join users us on iduser = us.id
 inner join pitches pi on idpitch = pi.id 
-WHERE email = $1 AND (pi.city ILIKE $2 OR pi.state ILIKE $2 OR pi.name ILIKE $2);`,
+WHERE email = $1 AND (pi.city ILIKE $2 OR pi.state ILIKE $2 OR customname ILIKE $2);`,
   createFav: `INSERT INTO favorites (iduser, idpitch, customname)
             VALUES ($1,$2,$3);`,
   deleteFav: `DELETE FROM favorites WHERE iduser=$1 and idpitch=$2;`,

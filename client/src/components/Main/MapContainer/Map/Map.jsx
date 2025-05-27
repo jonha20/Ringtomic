@@ -5,6 +5,7 @@ import axios from "axios";
 import { UserContext } from "@/src/context/userContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { v4 as uuidv4 } from "uuid";
 
 const Map = ({ pitches }) => {
   const [coords, setValue] = useState([40.4168, -3.7038]); // Valor por defecto
@@ -53,24 +54,14 @@ useEffect(() => {
       },
       (error) => {
         console.error("No se pudo obtener la ubicación:", error);
-        setValue([40.4168, -3.7038]); // fallback Madrid
+        setValue([40.4168, -3.7038]); // Madrid
       }
     );
   } else {
-    setValue([40.4168, -3.7038]); // fallback Madrid
+    setValue([40.4168, -3.7038]); // Madrid
   }
 }, []);
 
-  // Componente para mover el mapa cuando cambian las coords
-  function ChangeView({ center }) {
-    const map = useMap();
-    useEffect(() => {
-      if (center) {
-        map.setView(center);
-      }
-    }, [center, map]);
-    return null;
-  }
 
   return (
     <>
@@ -90,14 +81,13 @@ useEffect(() => {
         zoom={13}
         style={{ height: "70vh", width: "90%", borderRadius: "18px" }}
       >
-        <ChangeView center={coords} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {pitches &&
-          pitches.map((feature, idx) => (
-            <Marker key={idx} position={[feature.latitude, feature.longitude]}>
+          pitches.map((feature) => (
+            <Marker key={uuidv4()} position={[feature.latitude, feature.longitude]}>
               <Popup>
                 <div>
                   <strong>Campo:</strong> {feature.type ?? "Sin dato"}

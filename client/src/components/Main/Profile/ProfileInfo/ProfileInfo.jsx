@@ -1,15 +1,11 @@
-import React, { useContext, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import React, { useContext } from "react";
 import { UserContext } from '@/src/context/userContext';
-import axios from "axios";
 
 const ProfileInfo = () => {
   const { user } = useContext(UserContext);
   if (!user) {
     window.location.href = "/login";
   }
- 
-
 
   return <>
   
