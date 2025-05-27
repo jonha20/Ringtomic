@@ -11,11 +11,9 @@ const Map = ({ pitches }) => {
   const [coords, setValue] = useState([40.4168, -3.7038]); // Valor por defecto
   const { user } = useContext(UserContext);
   const notify = (message, type) => toast[type](message); // Función para mostrar notificaciones
-
+let iduser = user.id;
   const handleAddFavorite = async (idpitch, customname) => {
     try {
-      let iduser = user.id;
-
       // Hacer la petición para añadir a favoritos
       const response = await axios.post(
         "https://ringtomic.onrender.com/favorites/",
@@ -42,6 +40,18 @@ const Map = ({ pitches }) => {
       console.error("No se pudo añadir a favoritos:", error.message);
       notify("No se pudo añadir a favoritos", "error");
     }
+    }
+  };
+
+  const handleReserve = async (idpitch) => {
+    try {
+      const response = await axios.put(
+        `https://ringtomic.onrender.com/favorites/${idpitch}`,
+        { withCredentials: true }
+      );
+      console.log("Campo reservado:", response.data);
+    } catch (error) {
+      console.error("Error al reservar el campo:", error);
     }
   };
 
@@ -117,6 +127,13 @@ useEffect(() => {
                     }}
                   >
                     ❤️ Añadir a favoritos
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleReserve(feature.id);
+                    }}
+                  >
+                    📅 Reservar Cancha
                   </button>
                 </div>
               </Popup>

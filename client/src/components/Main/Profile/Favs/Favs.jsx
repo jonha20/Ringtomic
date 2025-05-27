@@ -84,7 +84,6 @@ const Favs = ({ favs, onButton, onDelete }) => {
   return (
     <>
       <article className="fav-card">
-        <p>Id: {favs.id}</p>
         <p>Provincia: {favs.state}</p>
         <p>Ciudad: {favs.city}</p>
         <p>Campo: {favs.customname}</p>
