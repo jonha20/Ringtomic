@@ -45,9 +45,9 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-// app.get('/', (req, res) => {
-//   res.send('¡Ringtomic!');
-// });
+app.get('/ready', (req, res) => {
+  res.send('Server Ready!');
+});
 
 // Documentación
 // http://localhost:3000/api-swagger
