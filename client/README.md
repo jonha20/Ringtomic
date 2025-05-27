@@ -1,12 +1,71 @@
-# React + Vite
+[⬅️ Volver al README principal](../README.md)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🎯 Frontend - Ringtomic
 
-Currently, two official plugins are available:
+Este es el frontend de **Ringtomic**, una web de reserva de pistas de baloncesto desarrollada con **React JS** y desplegada en Netlify.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🔥 Funcionalidades principales
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔐 **Login, registro y logout** con persistencia de sesión.
+- 🗺️ **Vista principal** con canchas disponibles para reservar en el mapa (Leaflet).
+- ➕ **Botón para añadir pistas a favoritos** desde el mapa.
+- 🔍 **Buscador de canchas** por ciudad y provincia.
+- 🍔 **Menú de navegación** + menú hamburguesa (burger-menu).
+- 🙋‍♂️ **Vista de perfil** con tarjeta de usuario.
+- ⭐ **Lista de canchas favoritas**.
+- ➕ ➖ ✏️ **Botones de añadir, editar y eliminar favoritos**.
+- 🔎 **Buscador de favoritos**.
+
+---
+
+## 🧰 Tecnologías y librerías utilizadas
+
+- **React** – Biblioteca principal de la UI
+- **Axios** – Peticiones HTTP
+- **SASS** – Estilos personalizados
+- **UUID** – Generación de IDs únicas
+- **Debounce** – Optimización de inputs de búsqueda
+- **burger-menu** – Menú de navegación responsive
+- **leaflet** – Mapa interactivo de canchas
+- **jwt-decode** – Decodificación del token JWT
+- **toastify** – Notificaciones emergentes
+- **sweetalert2** – Alertas visuales
+- **js-cookie** – Manejo de cookies
+- **vitest** – Tests del frontend
+
+---
+
+## 🧠 React Router y Hooks utilizados
+
+### Hooks de React
+- `useState`
+- `useEffect`
+- `useContext`
+
+### React Router
+- `useNavigate`
+- `useLocation`
+- `BrowserRouter`
+
+---
+
+## 🧪 Testing
+
+El proyecto incluye **3 pruebas básicas** realizadas con `vitest`.
+
+---
+
+## 🌐 Despliegue
+
+🔗 **Frontend (Netlify):**  
+[https://ringtomic.netlify.app](https://ringtomic.netlify.app)
+
+> ⏳ Al abrir la app, puede tardar unos segundos en cargar la información porque el backend (Render) entra en suspensión cuando no está en uso.
+
+---
+
+## 📄 Documentación adicional
+
+👉 Puedes consultar más detalles en el [README del backend](../server/README.md)
