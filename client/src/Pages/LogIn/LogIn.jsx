@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const LogIn = ({ setIsLogged }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-
+const notify = (message, type) => toast[type](message);
   const handleLogIn = async (e) => {
   e.preventDefault();
   try {
@@ -24,6 +25,11 @@ const LogIn = ({ setIsLogged }) => {
     }
   } catch (error) {
     console.log(error.message);
+    if (error.response && error.response.status === 401) {
+      notify("Invalid email or password", "error");
+    } else {
+      notify("An error occurred during login", "error");
+    }
   }
 };
   useEffect(() => {
@@ -37,6 +43,7 @@ const LogIn = ({ setIsLogged }) => {
   return (
     <>
       <main className="login">
+        <ToastContainer />
         <h1>Log In</h1>
         <form className="login__form" onSubmit={handleLogIn} autoComplete="on">
           <div className="login__field">

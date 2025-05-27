@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
   const [name, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [passwordMessage, setPasswordMessage] = useState("");
-  const [emailMessage, setEmailMessage] = useState("");
   const navigate = useNavigate();
+  const notify = (message, type) => toast[type](message); // Función para mostrar notificaciones
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -21,13 +21,14 @@ const SignUp = () => {
     let regex = true;
 
     if (!emailValidation.test(email)) {
-      setEmailMessage("Email must have a valid format");
+      notify("Email must have a valid format", "error");
       regex = false;
     }
 
     if (!passwordValidation.test(password)) {
-      setPasswordMessage(
-        "Password must contain lowecase, uppercase, digit and special character"
+      notify(
+        "Password must contain lowercase, uppercase, digit and special character",
+        "error"
       );
       regex = false;
     }
@@ -45,12 +46,14 @@ const SignUp = () => {
       }
     } catch (error) {
       console.log(error.message);
+      notify("Error during sign up", error.message, "error");
     }
   };
 
   return (
     <>
       <main className="signup">
+        <ToastContainer />
         <h1>Sign Up</h1>
         <form
           className="signup__form"
@@ -78,9 +81,6 @@ const SignUp = () => {
               required
               autoComplete="email"
             />
-            {emailMessage && (
-              <span className="signup__message">{emailMessage}</span>
-            )}
           </div>
           <div className="signup__field">
             <label htmlFor="password">Password</label>
@@ -92,9 +92,6 @@ const SignUp = () => {
               required
               autoComplete="new-password"
             />
-            {passwordMessage && (
-              <span className="signup__message">{passwordMessage}</span>
-            )}
           </div>
           <button className="signup__submit" type="submit">
             Sign Up
