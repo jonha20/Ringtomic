@@ -8,30 +8,30 @@ const LogIn = ({ setIsLogged }) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-const notify = (message, type) => toast[type](message);
+  const notify = (message, type) => toast[type](message);
   const handleLogIn = async (e) => {
-  e.preventDefault();
-  try {
-    const request = await axios.post(
-      "https://ringtomic.onrender.com/users/login",
-      { email, password },
-      { withCredentials: true }
-    );
-    setMessage(request.data.msg);
-    if (request.status === 200 && request.data.token) {
-      sessionStorage.setItem("access_token", request.data.token);
-      setIsLogged(true);
-      navigate("/");
+    e.preventDefault();
+    try {
+      const request = await axios.post(
+        "https://ringtomic.onrender.com/users/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      setMessage(request.data.msg);
+      if (request.status === 200 && request.data.token) {
+        sessionStorage.setItem("access_token", request.data.token);
+        setIsLogged(true);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error.message);
+      if (error.response && error.response.status === 401) {
+        notify("Invalid email or password", "error");
+      } else {
+        notify("An error occurred during login", "error");
+      }
     }
-  } catch (error) {
-    console.log(error.message);
-    if (error.response && error.response.status === 401) {
-      notify("Invalid email or password", "error");
-    } else {
-      notify("An error occurred during login", "error");
-    }
-  }
-};
+  };
   useEffect(() => {
     if (message) {
       setTimeout(() => {
