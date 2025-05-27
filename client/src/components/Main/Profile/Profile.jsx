@@ -6,7 +6,7 @@ import axios from "axios";
 import { UserContext } from "@/src/context/userContext";
 import { useDebounce } from "use-debounce";
 import { v4 as uuidv4 } from "uuid";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Profile = () => {
@@ -14,6 +14,7 @@ const Profile = () => {
   const [searchFavs, setSearchFavs] = useState("");
   const { user } = useContext(UserContext);
   const [debouncedText] = useDebounce(searchFavs, 2000);
+  const notify = (message, type) => toast[type](message); // Función para mostrar notificaciones
 
   const fetchFavs = async () => {
     try {
@@ -25,6 +26,9 @@ const Profile = () => {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         window.location.href = "/login"; // Redirige al login si no está autenticado
+      }
+      if (error.response && error.response.status === 404) {
+        notify("No se encontraron favoritos", "warning");
       }
       console.error("Error fetching favorites:", error);
     }

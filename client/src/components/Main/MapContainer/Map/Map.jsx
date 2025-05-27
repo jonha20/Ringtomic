@@ -5,6 +5,7 @@ import axios from "axios";
 import { UserContext } from "@/src/context/userContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { v4 as uuidv4 } from "uuid";
 
 const Map = ({ pitches }) => {
   const [coords, setValue] = useState([40.4168, -3.7038]); // Valor por defecto
@@ -85,8 +86,8 @@ useEffect(() => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {pitches &&
-          pitches.map((feature, idx) => (
-            <Marker key={idx} position={[feature.latitude, feature.longitude]}>
+          pitches.map((feature) => (
+            <Marker key={uuidv4()} position={[feature.latitude, feature.longitude]}>
               <Popup>
                 <div>
                   <strong>Campo:</strong> {feature.type ?? "Sin dato"}
