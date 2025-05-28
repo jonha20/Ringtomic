@@ -22,6 +22,7 @@ const Header = () => {
       });
       if (request.status === 200) {
         closeMenu();
+        sessionStorage.clear();
         navigate("/login");
       }
     } catch (error) {
