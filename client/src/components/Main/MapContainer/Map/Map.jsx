@@ -11,8 +11,9 @@ const Map = ({ pitches }) => {
   const [coords, setValue] = useState([40.4168, -3.7038]); // Valor por defecto
   const { user } = useContext(UserContext);
   const notify = (message, type) => toast[type](message); // Función para mostrar notificaciones
-let iduser = user.id;
+  
   const handleAddFavorite = async (idpitch, customname) => {
+    let iduser = user.id;
     try {
       // Hacer la petición para añadir a favoritos
       const response = await axios.post(
