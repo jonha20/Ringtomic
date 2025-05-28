@@ -13,8 +13,9 @@ const Map = ({ pitches }) => {
   const notify = (message, type) => toast[type](message); // Función para mostrar notificaciones
   
   const handleAddFavorite = async (idpitch, customname) => {
-    let iduser = user.id;
+  
     try {
+        let iduser = user.id;
       // Hacer la petición para añadir a favoritos
       const response = await axios.post(
         "https://ringtomic.onrender.com/favorites/",
@@ -51,8 +52,15 @@ const Map = ({ pitches }) => {
         { withCredentials: true }
       );
       console.log("Campo reservado:", response.data);
+      notify("Campo reservado correctamente", "success");
     } catch (error) {
-      console.error("Error al reservar el campo:", error);
+      if (error.response && error.response.status === 500) {
+        console.log("El campo ya está reservado");
+        notify("El campo ya está reservado", "error");
+      } else {
+        console.error("No se pudo reservar el campo:", error.message);
+        notify("No se pudo reservar el campo", "error");
+      }
     }
   };
 
