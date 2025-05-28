@@ -1,0 +1,126 @@
+@use '../utils/variables.scss' as vars;
+
+.signup {
+  height: 90.7vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+
+  h1 {
+    color: vars.$light-cyan;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 8px vars.$federal-blue;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  form {
+    background: rgba(255,255,255,0.10);
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 24px 0 rgba(2, 62, 138, 0.10);
+    padding: 2rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 340px;
+    align-items: stretch;
+  }
+
+  form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: 100%;
+  }
+
+  label {
+    color: vars.$light-cyan;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.5px;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: 0.7rem;
+    border: 2px solid vars.$blue-green;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.85);
+    color: vars.$federal-blue;
+    margin-bottom: 0;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: vars.$honolulu-blue;
+      outline: none;
+    }
+  }
+
+  button[type="submit"] {
+    background: vars.$honolulu-blue;
+    color: vars.$light-cyan;
+    border: none;
+    border-radius: 0.7rem;
+    padding: 0.7rem 1.2rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+      background: vars.$pacific-cyan;
+      color: vars.$federal-blue;
+    }
+  }
+
+  span {
+    color: vars.$vivid-sky-blue;
+    margin-top: 1rem;
+    font-weight: 600;
+    text-shadow: 0 2px 8px vars.$federal-blue;
+    display: block;
+    text-align: center;
+    font-size: 0.98rem;
+  }
+
+  p {
+    color: vars.$light-cyan;
+    margin-top: 1.5rem;
+    text-align: center;
+
+    a {
+      color: vars.$vivid-sky-blue;
+      font-weight: 600;
+      text-decoration: underline;
+      transition: color 0.2s;
+      text-decoration: none;
+
+      &:hover {
+        color: vars.$pacific-cyan;
+      }
+    }
+  }
+}
+
+// Desktop styles
+@media (min-width: 700px) {
+  .signup {
+    padding: 3rem 0;
+    form {
+      max-width: 400px;
+      padding: 2.5rem 2rem;
+    }
+    h1 {
+      font-size: 2.3rem;
+    }
+  }
+}

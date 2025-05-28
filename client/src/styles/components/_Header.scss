@@ -1,0 +1,134 @@
+@use '../utils/variables.scss' as vars;
+
+.header {
+  width: 100%;
+  background: linear-gradient(90deg, vars.$federal-blue 60%, vars.$blue-green 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  box-shadow: 0 2px 8px 0 rgba(2, 62, 138, 0.10);
+  position: relative; // pone el header en un contexto de apilamiento
+  z-index: 10; // asegura que el header esté por encima de otros elementos
+
+  &__logo {
+    width: 110px;
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block; // Asegura que la imagen ocupe todo el espacio del contenedor
+    }
+  }
+
+  &__center,
+  &__logout-desktop {
+    display: none; // Ocultos en móvil
+  }
+}
+
+// Burger menu visible solo en móvil
+.bm-burger-button {
+  position: fixed;
+  top: 16px;    
+  right: 16px;  
+  width: 36px;  
+  height: 30px; 
+  z-index: 100;   // Muy por encima del header y el resto
+}
+
+.bm-burger-bars {
+  background: vars.$white;
+}
+.bm-burger-bars-hover {
+  background:  vars.$federal-blue;
+}
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+.bm-cross {
+  background: vars.$white;
+}
+.bm-menu-wrap {
+  top: 0;
+  height: 100%;
+  z-index: 2000; // Asegura que el menú esté por encima de otros elementos
+}
+.bm-menu {
+  background: vars.$federal-blue;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.2em;
+}
+.bm-item-list {
+  color: vars.$white;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.bm-item {
+  color: vars.$light-cyan;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+ 
+}
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+.header__logout {
+  background: vars.$honolulu-blue;
+  color: vars.$light-cyan;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  &:hover {
+    background: vars.$pacific-cyan;
+    color: vars.$federal-blue;
+  }
+}
+
+// Desktop styles
+@media (min-width: 700px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
+
+    &__logo {
+      margin-bottom: 0;
+      width: 130px;
+      justify-content: flex-start;
+    }
+
+    &__center {
+      display: flex ; // Asegura que el centro se muestre en escritorio
+      flex: 1 1 auto; // Permite que el centro ocupe el espacio disponible
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0;
+    }
+
+    &__logout-desktop {
+      display: flex ;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  // Oculta el menú hamburguesa en escritorio
+  .bm-burger-button,
+  .bm-menu-wrap,
+  .bm-overlay {
+    display: none ;
+  }
+}

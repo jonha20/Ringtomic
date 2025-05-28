@@ -1,0 +1,220 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ringtomic API",
+    "version": "1.0.0",
+    "description": "API para gestión de pitches y favoritos en Ringtomic"
+  },
+  "servers": [
+    { "url": "https://ringtomic.onrender.com" },
+    { "url": "http://localhost:3000"}
+
+  ],
+  "paths": {
+    "/pitches": {
+      "get": {
+        "summary": "Obtener todos los pitches",
+        "responses": {
+          "200": {
+            "description": "Lista de pitches",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Pitch" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pitches/search": {
+      "get": {
+        "summary": "Buscar pitches por ubicación",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de pitches filtrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Pitch" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favorites/{email}": {
+      "get": {
+        "summary": "Obtener favoritos de un usuario",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de favoritos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Favorite" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favorites/search": {
+      "get": {
+        "summary": "Buscar favoritos por email y ubicación",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de favoritos filtrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Favorite" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favorites/": {
+      "post": {
+        "summary": "Añadir un favorito",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FavoriteInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Favorito añadido" }
+        }
+      },
+      "put": {
+        "summary": "Actualizar nombre de un favorito",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FavoriteInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Favorito actualizado" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un favorito",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FavoriteDelete" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Favorito eliminado" }
+        }
+      }
+    },
+    "/favorites/{idpitch}": {
+      "put": {
+        "summary": "Reservar pista (poner reserved en true)",
+        "parameters": [
+          {
+            "name": "idpitch",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Pista reservada" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pitch": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "name": { "type": "string", "example": "Campo de baloncesto" },
+          "type": { "type": "string", "example": "futbol" },
+          "city": { "type": "string", "example": "Madrid" },
+          "state": { "type": "string", "example": "Madrid" },
+          "access": { "type": "string", "example": "public" },
+          "lat": { "type": "number", "format": "float", "example": 40.4168 },
+          "lon": { "type": "number", "format": "float", "example": -3.7038 }
+        }
+      },
+      "Favorite": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1837 },
+          "customname": { "type": "string", "example": "Campo de baloncesto" },
+          "city": { "type": "string", "example": "Madrid" },
+          "state": { "type": "string", "example": "Comunidad de Madrid" },
+          "access": { "type": "string", "example": "private" },
+          "reserved": { "type": "boolean", "example": false }
+        }
+      },
+      "FavoriteInput": {
+        "type": "object",
+        "properties": {
+          "iduser": { "type": "integer", "example": 3 },
+          "idpitch": { "type": "integer", "example": 100 },
+          "customname": { "type": "string", "example": "Campo de baloncesto" }
+        }
+      },
+      "FavoriteDelete": {
+        "type": "object",
+        "properties": {
+          "iduser": { "type": "integer", "example": 2 },
+          "idpitch": { "type": "integer", "example": 324 }
+        }
+      }
+    }
+  }
+}

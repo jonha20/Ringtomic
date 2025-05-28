@@ -1,0 +1,75 @@
+
+@use '../utils/variables.scss' as vars;
+
+.profile-info {
+  background: linear-gradient(135deg, vars.$federal-blue 0%, vars.$blue-green 100%);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(2, 62, 138, 0.25);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  color: vars.$light-cyan;
+  font-family: vars.$font-main;
+  text-align: center;
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 12px 40px 0 rgba(0, 119, 182, 0.25);
+  }
+
+  h3 {
+    color: vars.$vivid-sky-blue;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-size: 1.6rem;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    &__img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: vars.$non-photo-blue-2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 4px 16px 0 rgba(0, 180, 216, 0.15);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid vars.$pacific-cyan;
+        background: white;
+      }
+    }
+
+    &__data {
+      margin-top: 1rem;
+      background: rgba(3, 4, 94, 0.15);
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      color: vars.$light-cyan;
+      box-shadow: 0 2px 8px 0 rgba(0, 150, 199, 0.08);
+
+      p {
+        margin: 0.5rem 0;
+        font-size: 1.1rem;
+        color: vars.$non-photo-blue;
+        font-weight: 500;
+
+        &:first-child {
+          color: vars.$vivid-sky-blue;
+        }
+      }
+    }
+  }
+}

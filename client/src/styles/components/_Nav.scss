@@ -1,0 +1,38 @@
+@use '../utils/variables.scss' as vars;
+
+.nav {
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  a {
+    display: block;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.6rem;
+    color: vars.$light-cyan;
+    background: vars.$marian-blue;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover,
+    &.active {
+      background: vars.$pacific-cyan;
+      color: vars.$federal-blue;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .nav ul {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}

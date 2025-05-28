@@ -1,0 +1,122 @@
+@use "../utils/variables.scss" as vars;
+
+.fav-card {
+  background: linear-gradient(
+    120deg,
+    vars.$blue-green 0%,
+    vars.$vivid-sky-blue 100%
+  );
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px 0 rgba(0, 119, 182, 0.1);
+  padding: 1.2rem 1rem;
+  min-width: 220px;
+  max-width: 260px;
+  margin: 0 auto;
+  color: vars.$federal-blue;
+  font-family: vars.$font-main;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.2s, transform 0.2s;
+
+  &:hover {
+    box-shadow: 0 8px 32px 0 rgba(0, 119, 182, 0.18);
+    transform: translateY(-4px) scale(1.03);
+  }
+
+  p {
+    margin: 0.2rem 0;
+    font-size: 1rem;
+    color: vars.$marian-blue;
+    font-weight: 500;
+
+    &:first-child {
+      color: vars.$honolulu-blue;
+      font-weight: 700;
+    }
+  }
+
+  .fav-card__actions {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: 10px;
+    width: 100%;
+
+    button {
+      flex: 1 1 0; // Ocupa el espacio disponible
+      padding: 0.5rem 0.7rem;
+      border: none;
+      border-radius: 0.6rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      background: vars.$federal-blue;
+      color: vars.$light-cyan;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+
+      &.Editar {
+        background: vars.$blue-green;
+        color: vars.$federal-blue;
+      }
+      &.Eliminar {
+        background: vars.$honolulu-blue;
+        color: vars.$white;
+      }
+      &:hover {
+        background: vars.$pacific-cyan;
+        color: vars.$federal-blue;
+      }
+    }
+  }
+}
+.swal-confirm-button {
+  background-color: vars.$blue-green; /* Fondo del botón */
+  color: vars.$light-cyan; /* Color del texto */
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  font-family: vars.$font-main;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: vars.$pacific-cyan; /* Fondo al pasar el mouse */
+    color: vars.$federal-blue; /* Texto al pasar el mouse */
+    transform: scale(1.05); /* Efecto de zoom */
+  }
+}
+
+.swal-cancel-button {
+  background-color: vars.$honolulu-blue; /* Fondo del botón de cancelar */
+  color: vars.$light-cyan; /* Color del texto */
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  font-family: vars.$font-main;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: vars.$marian-blue; /* Fondo al pasar el mouse */
+    color: vars.$white; /* Texto al pasar el mouse */
+    transform: scale(1.05); /* Efecto de zoom */
+  }
+}
+.favs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
