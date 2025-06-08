@@ -6,7 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 const SignUp = () => {
   const [name, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password_hash, setpassword_hash] = useState("");
+  const [img_url, setImgUrl] = useState(""); 
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const notify = (message, type) => toast[type](message); // Función para mostrar notificaciones
@@ -15,7 +16,7 @@ const SignUp = () => {
     e.preventDefault();
     // Validación manual antes de enviar
     const emailValidation = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const passwordValidation =
+    const password_hashValidation =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{9,}$/;
 
     let regex = true;
@@ -25,29 +26,30 @@ const SignUp = () => {
       regex = false;
     }
 
-    if (!passwordValidation.test(password)) {
+    if (!password_hashValidation.test(password_hash)) {
       notify(
-        "Password must contain lowercase, uppercase, digit and special character",
+        "password must contain lowercase, uppercase, digit and special character",
         "error"
       );
       regex = false;
     }
 
     if (!regex) return; // Bloquea el submit si hay errores
-    try {
-      const request = await axios({
-        method: "post",
-        url: "https://ringtomic.onrender.com/users/register",
-        data: { name, email, password },
-      });
-      setMessage(request.data.msg);
-      if (request.status === 201) {
-        navigate("/login");
-      }
-    } catch (error) {
-      console.log(error.message);
-      notify("Error during sign up", error.message, "error");
+     try {
+    const request = await axios.post("http://localhost:3000/users/register", {
+      name,
+      email,
+      password_hash, // Asegúrate de que este valor se envía correctamente
+      img_url,
+    });
+    setMessage(request.data.msg);
+    if (request.status === 201) {
+      navigate("/login");
     }
+  } catch (error) {
+    console.log(error.message);
+    notify("Error during sign up", error.message, "error");
+  }
   };
 
   return (
@@ -83,12 +85,12 @@ const SignUp = () => {
             />
           </div>
           <div className="signup__field">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password_hash">Password</label>
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={password_hash}
+              onChange={(e) => setpassword_hash(e.target.value)}
               required
               autoComplete="new-password"
             />
