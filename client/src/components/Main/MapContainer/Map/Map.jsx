@@ -10,15 +10,16 @@ import { v4 as uuidv4 } from "uuid";
 const Map = ({ pitches }) => {
   const [coords, setValue] = useState([40.4168, -3.7038]); // Valor por defecto
   const { user } = useContext(UserContext);
-  const notify = (message, type) => toast[type](message); // Función para mostrar notificaciones
-  
+  const notify = (message, type) => toast[type](message);
+  console.log("User context:", pitches);
+
+
   const handleAddFavorite = async (idpitch, customname) => {
-  
     try {
-        let iduser = user.id;
+      let iduser = user.id;
       // Hacer la petición para añadir a favoritos
       const response = await axios.post(
-        "https://ringtomic.onrender.com/favorites/",
+        "http://localhost:3000/favorites/",
         {
           iduser,
           idpitch,
@@ -31,17 +32,17 @@ const Map = ({ pitches }) => {
         console.log(response.data.msg);
         notify("Campo añadido a Favoritos", "success");
         console.log("Added to favorites:", idpitch + ", " + customname);
-      }else {
+      } else {
         console.log("No se pudo añadir a favoritos");
       }
     } catch (error) {
-       if (error.response && error.response.status === 500) {
-      console.log("El campo ya está en favoritos");
-      notify("El campo ya está en Favoritos", "error");
-    } else {
-      console.error("No se pudo añadir a favoritos:", error.message);
-      notify("No se pudo añadir a favoritos", "error");
-    }
+      if (error.response && error.response.status === 500) {
+        console.log("El campo ya está en favoritos");
+        notify("El campo ya está en Favoritos", "error");
+      } else {
+        console.error("No se pudo añadir a favoritos:", error.message);
+        notify("No se pudo añadir a favoritos", "error");
+      }
     }
   };
 
@@ -64,23 +65,21 @@ const Map = ({ pitches }) => {
     }
   };
 
-
-useEffect(() => {
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setValue([position.coords.latitude, position.coords.longitude]);
-      },
-      (error) => {
-        console.error("No se pudo obtener la ubicación:", error);
-        setValue([40.4168, -3.7038]); // Madrid
-      }
-    );
-  } else {
-    setValue([40.4168, -3.7038]); // Madrid
-  }
-}, []);
-
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setValue([position.coords.latitude, position.coords.longitude]);
+        },
+        (error) => {
+          console.error("No se pudo obtener la ubicación:", error);
+          setValue([40.4168, -3.7038]); // Madrid
+        }
+      );
+    } else {
+      setValue([40.4168, -3.7038]); // Madrid
+    }
+  }, []);
 
   return (
     <>
@@ -105,49 +104,37 @@ useEffect(() => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {pitches &&
-          pitches.map((feature) => (
-            <Marker key={uuidv4()} position={[feature.latitude, feature.longitude]}>
-              <Popup>
-                <div>
-                  <strong>Campo:</strong> {feature.type ?? "Sin dato"}
-                  <br />
-                  {feature.access && (
-                    <>
-                      <strong>Acceso:</strong> {feature.access}
-                      <br />
-                    </>
-                  )}
-                  {feature.reserved && (
-                    <>
-                      <strong>Reservado:</strong> {feature.reserved}
-                      <br />
-                    </>
-                  )}
-                  {feature.city && (
-                    <>
-                      <strong>Ciudad:</strong> {feature.city}
-                      <br />
-                    </>
-                  )}
-                  <button
-                    onClick={() => {
-                      handleAddFavorite(feature.id, feature.name);
-                      
-                    }}
-                  >
-                    ❤️ Añadir a favoritos
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleReserve(feature.id);
-                    }}
-                  >
-                    📅 Reservar Cancha
-                  </button>
-                </div>
-              </Popup>
-            </Marker>
-          ))}
+          pitches.map((feature) => {
+            const proxyUrl = "http://localhost:3000/";
+const imageUrl = `${proxyUrl}${feature.image_url}`;
+console.log("Image URL with proxy:", imageUrl); // Verifica el valor de imageUrl
+            return (
+              <Marker
+                key={uuidv4()}
+                position={[feature.latitude, feature.longitude]}
+              >
+                <Popup>
+                  <div className="popup-header">
+                    <h3>{feature.name}</h3>
+                    <img src={feature.image_url} alt="pitch-image" />
+                  </div>
+                  <div className="popup-content">
+                    <strong>Address:</strong> {feature.address}
+                    <button
+                      onClick={() =>
+                        handleAddFavorite(feature.id, feature.name)
+                      }
+                    >
+                      ❤️ Añadir a favoritos
+                    </button>
+                    <button onClick={() => handleReserve(feature.id)}>
+                      📅 Reservar Cancha
+                    </button>
+                  </div>
+                </Popup>
+              </Marker>
+            );
+          })}
       </MapContainer>
     </>
   );

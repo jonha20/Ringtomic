@@ -1,15 +1,5 @@
 const pitchesModel = require('../models/pitches.models');
 
-//getAllPitches
-const getAllPitches = async (req, res) => {
-    try {
-        const pitches = await pitchesModel.getAllPitches();
-        res.status(200).json(pitches);
-    } catch (error) {
-        res.status(500).json({ error: "Error en la BBDD" });
-    }
-};
-
 const getPitchesByLocation = async (req, res) => {
     const { location } = req.query;
     try {
@@ -21,11 +11,11 @@ const getPitchesByLocation = async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ error: "Error en la BBDD" });
+        console.error("Error al obtener los pitches por ubicación:", error);
     }
 };
 
 const pitchesController = {
-    getAllPitches,
     getPitchesByLocation,
 };
 

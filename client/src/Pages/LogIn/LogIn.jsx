@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 const LogIn = ({  }) => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password_hash, setPassword_hash] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const notify = (message, type) => toast[type](message);
@@ -13,8 +13,8 @@ const LogIn = ({  }) => {
     e.preventDefault();
     try {
       const request = await axios.post(
-        "https://ringtomic.onrender.com/users/login",
-        { email, password },
+        "http://localhost:3000/users/login",
+        { email, password_hash },
         { withCredentials: true }
       );
       setMessage(request.data.msg);
@@ -62,8 +62,8 @@ const LogIn = ({  }) => {
               type="password"
               id="password"
               autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={password_hash}
+              onChange={(e) => setPassword_hash(e.target.value)}
               required
             />
           </div>
