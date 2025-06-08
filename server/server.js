@@ -8,28 +8,25 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 app.use(express.json());
-// app.use(cors({
-//   origin: 'http://localhost:5173', // Cambia esto a la URL de tu frontend
-//   credentials: true // Permite el envío de cookies
-// }));
+
 
 app.set('trust proxy', 1); // Habilitar el proxy para HTTPS
 
+
+
 // app.use(cors({
-//   origin: function (origin, callback) {
-//     // Permitir cualquier origen (incluido sin origen, por ejemplo herramientas de prueba)
-//     callback(null, true);
-//   },
-//   credentials: true,
+//   origin: [
+//     "http://localhost:5173",
+//     "http://localhost:80",
+//     "http://localhost",
+//     "https://ringtomic.netlify.app"
+//   ],
+//   credentials: true
 // }));
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:80",
-    "http://localhost",
-    "https://ringtomic.netlify.app"
-  ],
+  origin: "*", // Permitir todos los orígenes
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 

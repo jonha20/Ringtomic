@@ -1,9 +1,7 @@
 const queries = {
   //PITCHES
-  getAllPitches: `SELECT * FROM public.pitches`,
-  getPitchByLocation: `SELECT * FROM pitches 
-WHERE reserved = false 
-  AND (city ILIKE $1 OR state ILIKE $1 OR name ILIKE $1);`,
+getPitchByLocation: `SELECT * FROM pitches 
+  WHERE city ILIKE $1 OR province ILIKE $1 OR name ILIKE $1 OR address ILIKE $1;`,
 
 
   // USERS

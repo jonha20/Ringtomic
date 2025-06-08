@@ -10,6 +10,54 @@
   background: vars.$light-cyan;
   z-index: 1; // 1 para que este por debajo del header 
 
+  .popup-header{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    img{
+      width: 80%;
+      height: auto;
+      border-radius: 1.2rem 1.2rem ;
+    }
+    h3{
+      width: 80%;
+      font-size: 1.0rem;
+      color: vars.$federal-blue;
+      font-family: vars.$font-main;
+      margin: 0.5rem 0;
+    }
+  }
+  .popup-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0.2rem;
+
+    p {
+      font-size: 0.9rem;
+      color: vars.$federal-blue;
+      font-family: vars.$font-main;
+      margin: 0.2rem 0;
+    }
+
+    .popup-button {
+      background: vars.$blue-green;
+      color: vars.$light-cyan;
+      border: none;
+      border-radius: 0.6rem;
+      padding: 0.4rem 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+
+      &:hover {
+        background: vars.$pacific-cyan;
+        color: vars.$federal-blue;
+      }
+    }
+  }
+
   // Leaflet controls
   .leaflet-control {
     font-family: inherit;

@@ -15,10 +15,12 @@ CREATE TABLE pitches (
   address VARCHAR(255),
   latitude DECIMAL(9,6),
   longitude DECIMAL(9,6),
-  image_url VARCHAR(255),
+  image_url TEXT,
   description TEXT,
   created_by INTEGER REFERENCES users(id),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  is_private BOOLEAN DEFAULT false,
+  external_booking_url TEXT;
 );
 
 CREATE TABLE favorites (
